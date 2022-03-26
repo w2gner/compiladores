@@ -1,7 +1,8 @@
 package src;
 
 import java.util.Stack;
-import obj.Token;
+
+import src.model.Token;
 
 /**
  * Faz a conversão do programa fonte em tokens (palavras da gramática) que devem

@@ -3,8 +3,7 @@ package src;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Stack;
-
-import obj.Token;
+import src.model.Token;
 
 public class Compilador {
     public static void main(String[] args) {
@@ -33,11 +32,11 @@ public class Compilador {
                 + "  UNTIL X > 10 ; "
                 + "END . ";
 
-        io.FileHandler.saveFile(path, program);
+        src.io.FileHandler.saveFile(path, program);
     }
 
     public static void testReadingFile(String path) throws FileNotFoundException, IOException {
-        StringBuilder texto = io.FileHandler.readFile(path);
+        StringBuilder texto = src.io.FileHandler.readFile(path);
         String programa = texto.toString();
 
         AnalisadorLexico analisadorLexico = new AnalisadorLexico();

@@ -16,6 +16,6 @@
             "request": "launch",
             "mainClass": "src.Compilador",
             "projectName": "compiladores_201287e5"
-        }
+        },
     ]
 }

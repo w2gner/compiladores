@@ -1,4 +1,4 @@
-package obj;
+package src.model;
 
 public class Token {
 
