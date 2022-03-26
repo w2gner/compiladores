@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-public class fileHandler {
+public class FileHandler {
     public static void saveFile(String path, String str) throws FileNotFoundException, IOException {
         FileOutputStream arq = null;
         PrintStream ps = null;

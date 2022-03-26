@@ -12,9 +12,9 @@
         },
         {
             "type": "java",
-            "name": "Launch compiladores",
+            "name": "Launch Compilador",
             "request": "launch",
-            "mainClass": "src.compiladores",
+            "mainClass": "src.Compilador",
             "projectName": "compiladores_201287e5"
         }
     ]
