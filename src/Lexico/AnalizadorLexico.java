@@ -10,7 +10,6 @@ package Lexico;
 import Models.Lista;
 import Models.Token;
 import Tela.EditorCompilador;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class AnalizadorLexico 
@@ -666,7 +665,7 @@ public class AnalizadorLexico
 
     private Integer getCodigoToken(String token) {
 
-        Integer codigoToken = gramatica.Gramatica.TERMINAIS_E_NAO_TERMINAIS.get(token);
+        Integer codigoToken = Gramatica.Gramatica.TERMINAIS_E_NAO_TERMINAIS.get(token);
         if (codigoToken == null) {
             // ou é um INTEGER ou pe um IDENTIFICADOR
             return getIdentificadorOuInteiro(token);
@@ -685,8 +684,8 @@ public class AnalizadorLexico
         }
 
         if (identificador) {
-            return gramatica.Gramatica.TERMINAIS_E_NAO_TERMINAIS.get("IDENTIFICADOR");
+            return Gramatica.Gramatica.TERMINAIS_E_NAO_TERMINAIS.get("IDENTIFICADOR");
         }
-        return gramatica.Gramatica.TERMINAIS_E_NAO_TERMINAIS.get("INTEIRO");
+        return Gramatica.Gramatica.TERMINAIS_E_NAO_TERMINAIS.get("INTEIRO");
     }
 }

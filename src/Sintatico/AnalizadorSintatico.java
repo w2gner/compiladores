@@ -67,11 +67,11 @@ public class AnalizadorSintatico {
                         System.out.println(pilhaA.getLista().get(i));
                     }
                 }
-                System.out.println("PilhaX" + pilhaA.tamanho());
-                for (int i = 0; i < pilhaA.tamanho(); i++) {
-                    System.out.println(pilhaA.getLista().get(i).getNome());
-                }
-
+                System.out.println("===Análise Sintática===");
+                // System.out.println("PilhaX" + pilhaA.tamanho());
+                // for (int i = 0; i < pilhaA.tamanho(); i++) {
+                //     System.out.println(pilhaA.getLista().get(i).getNome());
+                // }
                 System.out.println("O algoritmo é invalido ");
                 break;
             }
@@ -80,16 +80,17 @@ public class AnalizadorSintatico {
     }
 
     private void finalizaAvisandoErroOuSucesso(Stack<Token> pilhaA, Stack<Integer> pilhaX) {
+        System.out.println("===Análise Léxica===");
         if (pilhaX.isEmpty() && pilhaA.isEmpty()) {
-            System.out.println("Programa compilado com sucesso!");
+            System.out.println("O algoritmo é válido");
         } else {
-            System.out.println("Erro");
+            System.out.println("O algoritmo é invalido");
         }
     }
 
     private Integer[] buscarValoresM_Xa(Integer x, Integer a) {
-        String producoes = gramatica.Gramatica.GRAMATICA.get(x + "," + a);
-        return gramatica.Gramatica.geraDadosCruzamentoTabParsingToken(producoes);
+        String producoes = Gramatica.Gramatica.GRAMATICA.get(x + "," + a);
+        return Gramatica.Gramatica.geraDadosCruzamentoTabParsingToken(producoes);
     }
 
     /**
@@ -107,6 +108,6 @@ public class AnalizadorSintatico {
 
     private String getBuscarPalavraPeloCodigo(Integer codigo) {
 
-        return gramatica.Gramatica.getBuscarPalavraPeloCodigo(codigo);
+        return Gramatica.Gramatica.getBuscarPalavraPeloCodigo(codigo);
     }
 }
