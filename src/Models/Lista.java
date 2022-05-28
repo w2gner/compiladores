@@ -2,7 +2,7 @@
  *
  * @author Felipe Costa de jesus
  * @author Pedro Ventura
- * @author Wagner
+ * @author 
  *
  */
 package Models;
@@ -12,7 +12,7 @@ import java.util.Stack;
 
 public class Lista {
 
-    private final Stack<Token> lista;
+    private Stack<Token> lista;
 
     public Lista() {
         lista = new Stack<Token>();
@@ -37,4 +37,8 @@ public class Lista {
     public Token retorna(int posicao){
         return lista.get(posicao);
     }
+    
+    public String peek(){
+        return lista.peek().toString();
+    } 
 }
