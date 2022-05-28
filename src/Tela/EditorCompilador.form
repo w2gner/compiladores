@@ -92,7 +92,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="40" width="490" height="450"/>
+          <AbsoluteConstraints x="10" y="50" width="480" height="450"/>
         </Constraint>
       </Constraints>
 
@@ -102,20 +102,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="ghjfhgjdghhgdsdf"/>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Text Cursor"/>
-            </Property>
-            <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="66" red="66" type="rgb"/>
-            </Property>
-            <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="99" red="99" type="rgb"/>
-            </Property>
           </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
-          </AccessibilityProperties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Area_Texto.setText(&quot; program testeproc1;\n&quot; +&#xa;&quot;          var X, y, z :integer;\n&quot; +&#xa;&quot; procedure P; \n&quot; +&#xa;&quot;          var A :integer;\n&quot; +&#xa;&quot;              begin\n&quot; +&#xa;&quot;                  readln(a);\n&quot; +&#xa;&quot;                  if a=x then\n&quot; +&#xa;&quot;                      z:=z+x\n&quot; +&#xa;&quot;                  else begin\n&quot; +&#xa;&quot;            Z:=z+x;\n&quot; +&#xa;&quot;            call p;\n&quot; +&#xa;&quot;               end;\n&quot; +&#xa;&quot;                           end;\n&quot; +&#xa;&quot;        begin\n&quot; +&#xa;&quot;           Z:=0;\n&quot; +&#xa;&quot;           readln(x,y);\n&quot; +&#xa;&quot;             if x&gt;y then\n&quot; +&#xa;&quot;                 call p\n&quot; +&#xa;&quot;             else\n&quot; +&#xa;&quot;           Z:=z+x+y;\n&quot; +&#xa;&quot;         writeln(z);\n&quot; +&#xa;&quot;end.\n &quot;);"/>
           </AuxValues>

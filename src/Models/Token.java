@@ -2,7 +2,7 @@
  *
  * @author Felipe Costa de jesus
  * @author Pedro Ventura
- * @author Wagner
+ * @author 
  *
  */
 package Models;
@@ -10,11 +10,8 @@ package Models;
 public class Token {
 
     private String codigo;
-    private Integer cod;
     private String nome;
     private String linha;
-    private String palavra;
-
     Lista a = new Lista();
 
     public Token() {
@@ -24,12 +21,6 @@ public class Token {
         this.codigo = codigo;
         this.linha = linha;
         this.nome = nome;
-    }
-
-    public Token(String palavra, Integer cod) {
-        this.palavra = palavra;
-        this.cod = cod;
-
     }
 
     public String getCodigo() {
@@ -54,14 +45,5 @@ public class Token {
 
     public void setlinha(String linha) {
         this.linha = linha;
-    }
-
-    public Integer getCod() {
-        return cod;
-    }
-
-    @Override
-    public String toString() {
-        return "Token{" + "palavra=" + palavra + ", codigo=" + codigo + '}';
     }
 }

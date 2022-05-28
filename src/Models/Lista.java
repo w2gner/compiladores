@@ -7,6 +7,7 @@
  */
 package Models;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class Lista {
@@ -36,4 +37,8 @@ public class Lista {
     public Token retorna(int posicao){
         return lista.get(posicao);
     }
+    
+    public String peek(){
+        return lista.peek().toString();
+    } 
 }
