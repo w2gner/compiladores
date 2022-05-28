@@ -10,7 +10,6 @@ package Tela;
 import Lexico.AnalizadorLexico;
 import Models.Token;
 import Models.Lista;
-import Sintatico.AnalisadorSintatico;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -24,7 +23,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 import java.lang.String;
-import java.util.Stack;
 
 public class EditorCompilador extends javax.swing.JFrame {
 
@@ -50,7 +48,6 @@ public class EditorCompilador extends javax.swing.JFrame {
         setIconImage(img.getImage());
         Area_Texto.setForeground(Color.BLUE);
         Area_Texto.setFont(new Font("Consolas", Font.BOLD, 12));
-
     }
 
     @SuppressWarnings("unchecked")
@@ -114,7 +111,7 @@ public class EditorCompilador extends javax.swing.JFrame {
                 "       Else\n" +
                 "       Z:=z+x+y;\n" +
                 " Writeln(z);\n" +
-                "End.\n ");
+                "End.");
         jScrollPane2.setViewportView(Area_Texto);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 480, 450));
@@ -397,9 +394,6 @@ public class EditorCompilador extends javax.swing.JFrame {
         getListaAdd(listaToken);
         String texto = String.valueOf(Area_Texto.getText());
         AnalizadorLexico cc = new AnalizadorLexico();
-        Stack<Token> tokens = new AnalizadorLexico().gerarTokens(texto);
-        new AnalisadorSintatico().analisar(tokens);
-
         listaToken = cc.getPalavra(texto);
 
         if (cc.erroLexico == true) {
@@ -492,7 +486,7 @@ public class EditorCompilador extends javax.swing.JFrame {
         }
 
     }
-    
+
     public static void main(String args[]) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

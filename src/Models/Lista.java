@@ -2,16 +2,17 @@
  *
  * @author Felipe Costa de jesus
  * @author Pedro Ventura
- * @author 
+ * @author Wagner
  *
  */
 package Models;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class Lista {
 
-    private Stack<Token> lista;
+    private final Stack<Token> lista;
 
     public Lista() {
         lista = new Stack<Token>();
