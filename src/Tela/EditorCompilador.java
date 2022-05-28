@@ -2,7 +2,7 @@
  *
  * @author Felipe Costa de jesus
  * @author Pedro Ventura
- * @author 
+ * @author Wagner
  * 
  */
 package Tela;
@@ -10,7 +10,6 @@ package Tela;
 import Lexico.AnalizadorLexico;
 import Models.Token;
 import Models.Lista;
-import Sintatico.AnalizadorSintatico;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -22,6 +21,8 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.IOException;
+import java.lang.String;
 
 public class EditorCompilador extends javax.swing.JFrame {
 
@@ -42,12 +43,11 @@ public class EditorCompilador extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon("img/compilador.png");
         initComponents();
         setLocationRelativeTo(null);
-        getListaMunuAtt(listaToken);
+        getListaAdd(listaToken);
         setResizable(false);
         setIconImage(img.getImage());
         Area_Texto.setForeground(Color.BLUE);
         Area_Texto.setFont(new Font("Consolas", Font.BOLD, 12));
-
     }
 
     @SuppressWarnings("unchecked")
@@ -63,7 +63,7 @@ public class EditorCompilador extends javax.swing.JFrame {
         Table = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLbResult = new javax.swing.JLabel();
+        LBLAutores = new javax.swing.JLabel();
         SairIcon = new javax.swing.JButton();
         AbrirIcon = new javax.swing.JButton();
         SalvarIcon = new javax.swing.JButton();
@@ -72,6 +72,7 @@ public class EditorCompilador extends javax.swing.JFrame {
         NewDoc = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         TextConsole = new javax.swing.JTextArea();
+        jLbResult1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         Abrir = new javax.swing.JCheckBoxMenuItem();
@@ -87,35 +88,37 @@ public class EditorCompilador extends javax.swing.JFrame {
 
         Area_Texto.setColumns(20);
         Area_Texto.setRows(5);
-        Area_Texto.setText(" program testeproc1;\n" +
-                "          var X, y, z :integer;\n" +
-                " procedure P; \n" +
-                "          var A :integer;\n" +
-                "              begin\n" +
-                "                  readln(a);\n" +
-                "                  if a=x then\n" +
-                "                      z:=z+x\n" +
-                "                  else begin\n" +
-                "            Z:=z+x;\n" +
-                "            call p;\n" +
-                "               end;\n" +
-                "                           end;\n" +
-                "        begin\n" +
-                "           Z:=0;\n" +
-                "           readln(x,y);\n" +
-                "             if x>y then\n" +
-                "                 call p\n" +
-                "             else\n" +
-                "           Z:=z+x+y;\n" +
-                "         writeln(z);\n" +
-                "end.\n ");
+        Area_Texto.setText("Program testeproc1;\n" +
+                " Var\n" +
+                "   X, y, z :integer;  \n" +
+                " Procedure P;\n" +
+                " Var\n" +
+                "   A :integer;\n" +
+                " Begin\n" +
+                "       Readln(a);\n" +
+                "       If a=x then\n" +
+                "            z:=z+x\n" +
+                "       Else begin\n" +
+                "               Z:=z-x;\n" +
+                "               Call p;\n" +
+                "       End;\n" +
+                " End;\n" +
+                " Begin\n" +
+                "       Z:=0;\n" +
+                "       Readln(x,y);\n" +
+                "           If x>y then\n" +
+                "           Call p\n" +
+                "       Else\n" +
+                "       Z:=z+x+y;\n" +
+                " Writeln(z);\n" +
+                "End.");
         jScrollPane2.setViewportView(Area_Texto);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 480, 450));
 
         Nome_Programa.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         Nome_Programa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Nome_Programa.setText("Compilador Unesc");
+        Nome_Programa.setText("Compilador Unesc - 2022");
         getContentPane().add(Nome_Programa, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 280, 30));
 
         Table.setModel(new javax.swing.table.DefaultTableModel(
@@ -148,8 +151,8 @@ public class EditorCompilador extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 260, 50));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, -1, 20));
 
-        jLbResult.setText("Console");
-        getContentPane().add(jLbResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 80, 20));
+        LBLAutores.setText("Desenvolvedores: Felipe Costa, Pedro Ventura e Wagner");
+        getContentPane().add(LBLAutores, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 650, 410, 20));
 
         SairIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Tela/icons8-log-out-24.png"))); // NOI18N
         SairIcon.setAutoscrolls(true);
@@ -240,6 +243,9 @@ public class EditorCompilador extends javax.swing.JFrame {
         jScrollPane3.setViewportView(TextConsole);
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 800, 110));
+
+        jLbResult1.setText("Console");
+        getContentPane().add(jLbResult1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 80, 20));
 
         jMenu1.setText("Arquivo");
 
@@ -385,12 +391,11 @@ public class EditorCompilador extends javax.swing.JFrame {
 
         TextConsole.append("Programa inicializado\n");
         listaToken.limpar();
-        getListaMunuAtt(listaToken);
+        getListaAdd(listaToken);
         String texto = String.valueOf(Area_Texto.getText());
         AnalizadorLexico cc = new AnalizadorLexico();
         listaToken = cc.getPalavra(texto);
 
-        new AnalizadorSintatico().analisar(listaToken);
         if (cc.erroLexico == true) {
             TextConsole.setForeground(Color.RED);
             TextConsole.append("Ocorreu um Erro lexico verifique!\n");
@@ -399,7 +404,7 @@ public class EditorCompilador extends javax.swing.JFrame {
             TextConsole.append("Compilado com Sucesso!\n");
         }
 
-        getListaMunuAtt(listaToken);
+        getListaAdd(listaToken);
     }// GEN-LAST:event_AnalisarActionPerformed
 
     private void NewDocActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_NewDocActionPerformed
@@ -420,7 +425,7 @@ public class EditorCompilador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_TextConsoleAncestorAdded
 
-    public void getListaMunuAtt(Lista lista) {
+    public void getListaAdd(Lista lista) {
 
         modeloTable = (DefaultTableModel) Table.getModel();
         while (modeloTable.getRowCount() > 0) {
@@ -449,7 +454,7 @@ public class EditorCompilador extends javax.swing.JFrame {
             TextConsole.setForeground(Color.BLACK);
             TextConsole.append("Arquivo aberto com sucesso!\n");
 
-        } catch (Exception erro) {
+        } catch (IOException erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
             TextConsole.setForeground(Color.BLACK);
             TextConsole.append("Erro ao abrir o arquivo!\n");
@@ -476,7 +481,7 @@ public class EditorCompilador extends javax.swing.JFrame {
             escrever.close();
             TextConsole.setForeground(Color.BLACK);
             TextConsole.append("Arquivo salvo com sucesso!\n");
-        } catch (Exception erro) {
+        } catch (IOException erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
 
@@ -499,6 +504,7 @@ public class EditorCompilador extends javax.swing.JFrame {
     private javax.swing.JButton AbrirIcon;
     private javax.swing.JButton Analisar;
     private javax.swing.JTextArea Area_Texto;
+    private javax.swing.JLabel LBLAutores;
     private javax.swing.JButton Limpar;
     private javax.swing.JMenu LogOut;
     private javax.swing.JButton NewDoc;
@@ -511,7 +517,7 @@ public class EditorCompilador extends javax.swing.JFrame {
     private javax.swing.JTextArea TextConsole;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLbResult;
+    private javax.swing.JLabel jLbResult1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

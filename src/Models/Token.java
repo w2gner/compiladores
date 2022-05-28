@@ -2,7 +2,7 @@
  *
  * @author Felipe Costa de jesus
  * @author Pedro Ventura
- * @author 
+ * @author Wagner
  *
  */
 package Models;
