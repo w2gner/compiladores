@@ -1,0 +1,189 @@
+2)_______________________________________________
+#(*teste - exemplo válido*)
+program teste123;
+var x, a, b : integer;
+begin
+#(*testa as possibilidades do repeat*)
+repeat 
+begin 
+readln(a,b);
+end
+until x > 10;
+end.
+
+3)________________________________________________
+
+#(*teste - exemplo iválido. o label_a não é válido para a procedure*)
+program testeproc2;
+label label_a;
+const a  = 100;
+var x,y, z : integer;
+procedure p(y : integer);
+const a = 2;
+var x,t:integer;
+begin
+end;
+begin
+call p(label_a)
+end.
+
+4________________________________________________
+#(*teste - erro*)
+#(*a derivao [66,26] 'comando,inteiro' no foi encontrada na tabela de parsing.*)
+program teste123;
+var x, a, b : integer;
+begin
+repeat 5
+begin 
+readln(a,b);
+x := a * b;
+end
+until x > 10;
+end.
+
+5______________________________________________________
+#(*teste - válido. uma expressão pode ser utilizada na procedure*)
+program testeproc2;
+label label_a;
+const a  = 100;
+var x,y, z : integer;
+procedure p(y : integer);
+const a = 2;
+var x,t:integer;
+begin
+end;
+begin
+x:=10;
+call p((10 +5) * x)
+end.
+
+6)_________________________________________________
+program teste123;
+const
+a = -100;
+b = -200;
+var 
+ x, y, z : integer;
+array_a : array[0..20] of integer;
+array_b, array_c, array_d : array[0..1000] of integer;
+procedure p_teste(idd : integer);
+label
+label_a, label_b;
+const
+a = 100;
+b = 200;
+var 
+x, y, z : integer;
+array_a : array[0..20] of integer;
+array_b : array[0..1000] of integer;
+begin
+x := a * b;
+end;
+begin
+call p_teste(a);
+call p_teste(b);
+call p_teste(x);
+end.
+7)__________________________________________________________
+#(*teste - exemplo válido com procedures*)
+program teste123;
+const
+a = -100;
+b = -200;
+var 
+x, y, z : integer;
+array_a : array[0..20] of integer;
+array_b, array_c, array_d : array[0..1000] of integer;
+#(*declaração de procedure, inicia novo bloco*)
+procedure p_teste(idd : integer);
+label
+label_a, label_b;
+const
+a = 100;
+b = 200;
+var 
+x, y, z : integer;
+array_a : array[0..20] of integer;
+array_b : array[0..1000] of integer;
+begin
+x := a * b;
+end;
+begin
+call p_teste(a);
+call p_teste(b);
+call p_teste(x);
+end.
+
+8)__________________________________________________________
+
+
+#(*teste - exemplo inválido: a varivel 'a' foi declarada em duplicidade*)
+program teste123;
+const
+a = -100;
+b = -200;
+var 
+a, y, z : integer;
+begin
+z := 0;
+end.
+
+9)____________________________________________________________
+
+#(*teste - exemplo válido: multiplicação*)
+program teste123;
+const
+a = -100;
+b = -200;
+var 
+y, z : integer;
+begin
+z := a * y + 2;
+end.
+
+10)______________________________________________________________
+
+#(*teste - valido com duas procedures*)
+program teste_proc;
+#(*proc a*)
+procedure p_a(idd : integer);
+var 
+x, y, z : integer;
+begin
+x := x * y;
+end;
+#(*proc b com os mesmos dados de a*)
+procedure p_b(idd : integer);
+var
+x, y, z : integer;
+begin
+x := z *z;
+end;
+begin
+call p_a(10 + 2);
+call p_b(5);
+end.
+
+11)_____________________________________________________________________
+
+#(*teste - inválido: procedure duplicada*)
+program teste_proc;
+#(*proc a*)
+procedure p_a(idd : integer);
+var 
+x, y, z : integer;
+begin
+x := x * y;
+end;
+#(*proc b com os mesmos dados de a*)
+procedure p_a(idd : integer);
+var 
+x, y, z : integer;
+begin
+x := z *z;
+end;
+begin
+call p_a(10 + 2);
+call p_b(5);
+end.
+
