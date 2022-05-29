@@ -9,7 +9,7 @@ package Models;
 
 public class Token {
 
-    private String codigo;
+    private Integer codigo;
     private String nome;
     private String linha;
     Lista a = new Lista();
@@ -17,13 +17,13 @@ public class Token {
     public Token() {
     }
 
-    public Token(String codigo, String nome, String linha) {
+    public Token(Integer codigo, String nome, String linha) {
         this.codigo = codigo;
         this.linha = linha;
         this.nome = nome;
     }
 
-    public String getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
@@ -35,7 +35,7 @@ public class Token {
         return linha;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 

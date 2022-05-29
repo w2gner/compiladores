@@ -145,7 +145,7 @@ public class AnalizadorLexico
 
                                 if (FUN_tamanho_numero(numero)) 
                                 {
-                                    token.setCodigo("26");
+                                    token.setCodigo(26);
                                     token.setlinha(String.valueOf(contadorDelinha));
                                     token.setNome(palavraToken);
                                     listaToken.adicionar(token);
@@ -187,7 +187,7 @@ public class AnalizadorLexico
                                     }
                                     else
                                     {
-                                        token.setCodigo("48");
+                                        token.setCodigo(48);
                                         token.setlinha(String.valueOf(contadorDelinha));
                                         token.setNome(palavraToken);
                                         listaToken.adicionar(token);
@@ -377,7 +377,7 @@ public class AnalizadorLexico
 //        }
         Integer codigo = getCodigoToken(palavra);
 
-        token.setCodigo(codigo.toString());
+        token.setCodigo(codigo);
         token.setNome(palavra);
         token.setlinha(String.valueOf(linha));
         
@@ -665,7 +665,7 @@ public class AnalizadorLexico
 
     private Integer getCodigoToken(String token) {
 
-        Integer codigoToken = Gramatica.Gramatica.TERMINAIS_E_NAO_TERMINAIS.get(token);
+        Integer codigoToken = Gramatica.Gramatica.TERMINAIS_E_NAO_TERMINAIS.get(token.toUpperCase());
         if (codigoToken == null) {
             // ou é um INTEGER ou pe um IDENTIFICADOR
             return getIdentificadorOuInteiro(token);

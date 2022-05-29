@@ -7,7 +7,6 @@
  */
 package Models;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class Lista {
@@ -29,16 +28,29 @@ public class Lista {
     public void limpar() {
         lista.clear();
     }
-    
-     public int tamanho() {
+
+    public int tamanho() {
         return lista.size();
     }
-    
-    public Token retorna(int posicao){
+
+    public Token retorna(int posicao) {
         return lista.get(posicao);
     }
-    
-    public String peek(){
-        return lista.peek().toString();
-    } 
+
+    public Token getToken() {
+        return lista.peek();
+    }
+
+    public Integer getCodigo() {
+        return lista.peek().getCodigo();
+    }
+
+    public Token peek() {
+        return lista.peek();
+    }
+
+    @Override
+    public String toString() {
+        return lista.toString();
+    }
 }
