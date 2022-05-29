@@ -37,8 +37,10 @@ public class AnalizadorSintatico {
                     System.out.println("PilhaX " + pilhaX.peek());
                     pilhaA.pop(); // retirando A da entrada
                     pilhaX.pop(); // retirando X do topo da pilha
-                    System.out.println("PilhaA " + pilhaA.peek().getCodigo());
-                    System.out.println("PilhaX " + pilhaX.peek());
+                    if(!pilhaA.empty() && !pilhaX.empty()){
+                        System.out.println("PilhaA " + pilhaA.peek().getCodigo());
+                        System.out.println("PilhaX " + pilhaX.peek());
+                    }
                 } else {
                     System.out.println("ValorA encontrado= "+valorA+"\nvalorA encontrado= " + getBuscarPalavraPeloCodigo(valorA));
                     System.out.println("ValorX esperado= "+valorX+"\nvalorX esperado= " + getBuscarPalavraPeloCodigo(valorX));

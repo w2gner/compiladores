@@ -92,7 +92,7 @@ public class AnalizadorLexico
                     // Verificação de espaços e tab
                     if (String.valueOf(caracter).matches(" ")||String.valueOf(caracter).matches("\t")) 
                     {
-
+                        continue;
                     } 
                     else 
                     {
@@ -123,7 +123,7 @@ public class AnalizadorLexico
                             // Verificação de inteiros 
                             if (String.valueOf(caracter).matches("[0-9]")) 
                             {                                
-                                while (String.valueOf(caracter).matches("[-0-9a-zA-Z_.,]")) 
+                                while (String.valueOf(caracter).matches("[0-9]")) 
                                 {
 
                                     caracter = texto.charAt(i);
@@ -133,7 +133,7 @@ public class AnalizadorLexico
 
                                 }
                                 
-                                if (String.valueOf(caracter).matches("[0-9.,]"))  
+                                if (String.valueOf(caracter).matches("[0-9],")) 
                                 {
                                     JOptionPane.showMessageDialog(null, "Erro lexico o numero não deve ter ponto decimal\nLinha: " + contadorDelinha + "\nPalavra: " + palavraToken);
                                     erroLexico = true;
@@ -275,9 +275,27 @@ public class AnalizadorLexico
                                             else 
                                             {
 
-                                                if (String.valueOf(caracter).matches("[\\[\\]=+;,*)(-/].")) 
+                                                if (String.valueOf(caracter).matches(".")) 
                                                 {
                                                     palavraToken += String.valueOf(caracter);
+                                                    char a;
+                                                    int j = i + 1;
+                                                    System.out.println(palavraToken);
+                                                    
+                                                    if( i +1 == texto.length())
+                                                    {
+                                                        // condição para nao acessar o array char vazio 
+                                                    }
+                                                    else
+                                                    {
+                                                        a = texto.charAt(j);
+                                                       
+                                                        if (String.valueOf(a).matches("[.]")) 
+                                                        {
+                                                            palavraToken += String.valueOf(a);
+                                                            i = j;
+                                                        }
+                                                    }
                                                     setLista(palavraToken, contadorDelinha);
                                                     palavraToken = "";
 
@@ -351,12 +369,15 @@ public class AnalizadorLexico
                 JOptionPane.showMessageDialog(null, "Programa compilado com sucesso");
             
         } 
-        catch (Exception e) 
+        catch (StringIndexOutOfBoundsException s) 
+        {
+            System.out.println("Array Vazio.");
+        }
+        catch(Exception e)
         {
             erroLexico = true;
             setLista(palavraToken, contadorDelinha);
             erro(contadorDelinha, palavraToken);
-            
         }
 
         //setLista("$", contadorDelinha);
