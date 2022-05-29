@@ -1,16 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Sintatico;
 
-import Models.Lista;
 import Models.Token;
 import java.util.Stack;
+import Gramatica.Gramatica;
 
 /**
  *
- * @author ventura
+ * @author Pedro Ventura
+ * @author Wagner
  */
 public class AnalizadorSintatico {
 
@@ -18,17 +15,16 @@ public class AnalizadorSintatico {
      * Este método será implementado pelos alunos
      *
      */
-    public void analisar(Lista tokens) {
-        Stack<Token> pilhaA = tokens.getLista();
+    public void analisar(Stack<Token> tokens) {
+        Stack<Token> pilhaA = reverseStack((Stack<Token>)tokens);
         Stack<Integer> pilhaX = new Stack<Integer>();
-        Integer index = 0;
 
         pilhaX.push(52); // iniciando a pilhaX com um codigo
-        while (!pilhaA.empty()) { // enquanto a pilha A for diferente de vazio faça
-            
-            //Integer valorA = pilhaA.peek().getCodigo(); // pegando o codígo do topo da pilha A
-            Integer valorA = pilhaA.get(index).getCodigo(); // pegando o codígo do topo da pilha A
+        while (!pilhaA.empty()) { // enquanto a pilha A for diferente de vazio faça     
+            Integer valorA = pilhaA.peek().getCodigo(); // pegando o codígo do topo da pilha A
+            //Integer valorA = pilhaA.get(index).getCodigo(); // pegando o codígo do topo da pilha A
             Integer valorX = pilhaX.peek(); // pegando o topo da pilha
+           
             /*
              * < 52 representa o codigo do conjunto terminal
              * >= 52 representa o codigo do conjunto não terminal
@@ -37,11 +33,15 @@ public class AnalizadorSintatico {
             if (valorX < 52) {
                 if (valorX == valorA) {
                     System.out.println("Tamanho PilhaA= " + pilhaA.size());
-                    pilhaX.pop(); // retirando X do topo da pilha
+                    System.out.println("PilhaA " + pilhaA.peek().getCodigo());
+                    System.out.println("PilhaX " + pilhaX.peek());
                     pilhaA.pop(); // retirando A da entrada
+                    pilhaX.pop(); // retirando X do topo da pilha
+                    System.out.println("PilhaA " + pilhaA.peek().getCodigo());
+                    System.out.println("PilhaX " + pilhaX.peek());
                 } else {
-                    System.out.println("valorA encontrado= " + getBuscarPalavraPeloCodigo(valorA));
-                    System.out.println("valorX esperado= " + getBuscarPalavraPeloCodigo(valorX));
+                    System.out.println("ValorA encontrado= "+valorA+"\nvalorA encontrado= " + getBuscarPalavraPeloCodigo(valorA));
+                    System.out.println("ValorX esperado= "+valorX+"\nvalorX esperado= " + getBuscarPalavraPeloCodigo(valorX));
                     // System.out.println("O algoritmo é invalido valores diferentes! ");
                     return;
                 }
@@ -71,8 +71,8 @@ public class AnalizadorSintatico {
     }
 
     private Integer[] buscarValoresM_Xa(Integer x, Integer a) {
-        String producoes = Gramatica.Gramatica.GRAMATICA.get(x + "," + a);
-        return Gramatica.Gramatica.geraDadosCruzamentoTabParsingToken(producoes);
+        String producoes = Gramatica.GRAMATICA.get(x + "," + a);
+        return Gramatica.geraDadosCruzamentoTabParsingToken(producoes);
     }
 
     /**
@@ -90,6 +90,14 @@ public class AnalizadorSintatico {
 
     private String getBuscarPalavraPeloCodigo(Integer codigo) {
 
-        return Gramatica.Gramatica.getBuscarPalavraPeloCodigo(codigo);
+        return Gramatica.getBuscarPalavraPeloCodigo(codigo);
+    }
+
+    private Stack<Token> reverseStack(Stack<Token> pilha) {
+        Stack<Token> pilhaAux = new Stack<Token>();
+        while (!pilha.empty()) {
+            pilhaAux.push(pilha.pop());
+        }
+        return pilhaAux;
     }
 }

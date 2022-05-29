@@ -2,21 +2,24 @@
  *
  * @author Felipe Costa de jesus
  * @author Pedro Ventura
- * @author 
+ * @author Wagner
  * 
  */
 package Lexico;
 
-import Models.Lista;
 import Models.Token;
 import Tela.EditorCompilador;
+
+import java.util.Stack;
+
 import javax.swing.JOptionPane;
 
 public class AnalizadorLexico 
 {
 
     Token token = new Token();
-    Lista listaToken = new Lista();
+    Stack<Token> lista = new Stack<Token>();
+    //Lista lista = new Lista();
     EditorCompilador edtComp = new EditorCompilador();
     public boolean erroLexico = false;                  // Variavel para enviar ao editor de tela para mensagem de sucesso ou erro no console
 
@@ -65,7 +68,7 @@ public class AnalizadorLexico
         erroLexico = true;
     }
     
-    public Lista getPalavra(String texto) 
+    public Stack<Token> getPalavra(String texto) 
     {
         
         int contadorDelinha = 1;// Esta variavel conta as linhas do texto
@@ -119,9 +122,7 @@ public class AnalizadorLexico
                         {
                             // Verificação de inteiros 
                             if (String.valueOf(caracter).matches("[0-9]")) 
-                            {
-                                boolean num = false;
-                                
+                            {                                
                                 while (String.valueOf(caracter).matches("[-0-9a-zA-Z_.,]")) 
                                 {
 
@@ -148,7 +149,7 @@ public class AnalizadorLexico
                                     token.setCodigo(26);
                                     token.setlinha(String.valueOf(contadorDelinha));
                                     token.setNome(palavraToken);
-                                    listaToken.adicionar(token);
+                                    lista.push(token);
                                     palavraToken = "";
                                     i--;
                                 }
@@ -190,7 +191,7 @@ public class AnalizadorLexico
                                         token.setCodigo(48);
                                         token.setlinha(String.valueOf(contadorDelinha));
                                         token.setNome(palavraToken);
-                                        listaToken.adicionar(token);
+                                        lista.push(token);
                                         palavraToken = "";
                                     }
 
@@ -359,307 +360,23 @@ public class AnalizadorLexico
         }
 
         //setLista("$", contadorDelinha);
-        edtComp.getListaMunuAtt(listaToken);        
-        return listaToken;
+        edtComp.getListaMunuAtt(lista);        
+        return lista;
 
     }
 
-    // Alterar para uma classe GRAMATICA e implementar MAP para criar a tabela com os códigos
     public void setLista(String palavra, int linha) 
     {
 
         Token token = new Token();
-        
-//        Pattern p = Pattern.compile("[a-z][0-9a-z]{0,29}$", Pattern.CASE_INSENSITIVE);
-//        boolean v = p.matcher(palavra).matches();
-//        if(v){
-//            System.out.println("PATTERN: " + v);
-//        }
         Integer codigo = getCodigoToken(palavra);
 
         token.setCodigo(codigo);
         token.setNome(palavra);
         token.setlinha(String.valueOf(linha));
         
-//        System.out.println("token: " + token + " -" + " codigo: " + codigo);
-
-////        switch (palavra.toUpperCase()) 
-////        {
-////            case "PROGRAM":
-////                token.setCodigo("1");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////
-////            case "LABEL":
-////                token.setCodigo("2");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////
-////            case "CONST":
-////                token.setCodigo("3");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////
-////            case "VAR":
-////                token.setCodigo("4");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////
-////            case "PROCEDURE":
-////                token.setCodigo("5");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////
-////            case "BEGIN":
-////                token.setCodigo("6");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////
-////            case "END":
-////                token.setCodigo("7");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////
-////            case "INTEGER":
-////                token.setCodigo("8");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "ARRAY":
-////                token.setCodigo("9");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////
-////            case "OF":
-////                token.setCodigo("10");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////
-////            case "CALL":
-////                token.setCodigo("11");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "GOTO":
-////                token.setCodigo("12");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "IF":
-////                token.setCodigo("13");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "THEN":
-////                token.setCodigo("14");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "ELSE":
-////                token.setCodigo("15");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "WHILE":
-////                token.setCodigo("16");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "DO":
-////                token.setCodigo("17");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "REPEAT":
-////                token.setCodigo("18");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "UNTIL":
-////                token.setCodigo("19");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "READLN":
-////                token.setCodigo("20");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "WRITELN":
-////                token.setCodigo("21");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "OR":
-////                token.setCodigo("22");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "AND":
-////                token.setCodigo("23");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "NOT":
-////                token.setCodigo("24");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////
-////            case "INTEIRO":
-////                token.setCodigo("26");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "FOR":
-////                token.setCodigo("27");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "TO":
-////                token.setCodigo("28");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "CASE":
-////                token.setCodigo("29");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "+":
-////                token.setCodigo("30");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "-":   
-////                token.setCodigo("31");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "*":
-////                token.setCodigo("32");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "/":
-////                token.setCodigo("33");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "[":
-////                token.setCodigo("34");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "]":
-////                token.setCodigo("35");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "(":
-////                token.setCodigo("36");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case ")":
-////                token.setCodigo("37");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case ":=":
-////                token.setCodigo("38");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case ":":
-////                token.setCodigo("39");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "=":
-////                token.setCodigo("40");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case ">":
-////                token.setCodigo("41");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case ">=":
-////                token.setCodigo("42");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "<":
-////                token.setCodigo("43");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "<=":
-////                token.setCodigo("44");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "<>":
-////                token.setCodigo("45");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case ",":
-////                token.setCodigo("46");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case ";":
-////                token.setCodigo("47");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "LITERAL":
-////                token.setCodigo("48");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case ".":
-////                token.setCodigo("49");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "..":
-////                token.setCodigo("50");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////            case "$":
-////                token.setCodigo("51");
-////                token.setNome(palavra);
-////                token.setlinha(String.valueOf(linha));
-////                break;
-////
-////            default:
-////                
-////                if (FUN_tamanho_caracter(palavra)) {
-////                    token.setCodigo("25");
-////                    token.setNome(palavra);
-////                    token.setlinha(String.valueOf(linha));
-////                }
-////                else
-////                    erroLexico = true;
-////                break;
-//
-//        }
-
-        listaToken.adicionar(token);
+        //System.out.println("token: " + token + " -" + " codigo: " + codigo);
+        lista.push(token);
         
     }
 

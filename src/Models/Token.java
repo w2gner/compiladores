@@ -2,7 +2,7 @@
  *
  * @author Felipe Costa de jesus
  * @author Pedro Ventura
- * @author 
+ * @author Wagner
  *
  */
 package Models;
@@ -12,7 +12,6 @@ public class Token {
     private Integer codigo;
     private String nome;
     private String linha;
-    Lista a = new Lista();
 
     public Token() {
     }

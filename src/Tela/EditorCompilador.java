@@ -2,19 +2,19 @@
  *
  * @author Felipe Costa de jesus
  * @author Pedro Ventura
- * @author 
+ * @author Wagner
  * 
  */
 package Tela;
 
 import Lexico.AnalizadorLexico;
 import Models.Token;
-import Models.Lista;
 import Sintatico.AnalizadorSintatico;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Stack;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -26,7 +26,7 @@ import java.awt.Font;
 public class EditorCompilador extends javax.swing.JFrame {
 
     Token token = new Token();
-    Lista listaToken = new Lista();
+    Stack<Token> lista = new Stack<Token>();
     ImageIcon icon = new ImageIcon("@stack.png");
     private DefaultTableModel modeloTable;
     public int resultadoJanelas;
@@ -34,7 +34,7 @@ public class EditorCompilador extends javax.swing.JFrame {
     public String data;
 
     public void setTitle(String title) {
-        super.setTitle("Compiladores Unesc-2022");
+        super.setTitle("Compilador");
 
     }
 
@@ -42,7 +42,7 @@ public class EditorCompilador extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon("img/compilador.png");
         initComponents();
         setLocationRelativeTo(null);
-        getListaMunuAtt(listaToken);
+        getListaMunuAtt(lista);
         setResizable(false);
         setIconImage(img.getImage());
         Area_Texto.setForeground(Color.BLUE);
@@ -88,27 +88,27 @@ public class EditorCompilador extends javax.swing.JFrame {
         Area_Texto.setColumns(20);
         Area_Texto.setRows(5);
         Area_Texto.setText(" program testeproc1;\n" +
-                "          var X, y, z :integer;\n" +
-                " procedure P; \n" +
-                "          var A :integer;\n" +
-                "              begin\n" +
-                "                  readln(a);\n" +
-                "                  if a=x then\n" +
-                "                      z:=z+x\n" +
-                "                  else begin\n" +
-                "            Z:=z+x;\n" +
-                "            call p;\n" +
-                "               end;\n" +
-                "                           end;\n" +
-                "        begin\n" +
-                "           Z:=0;\n" +
-                "           readln(x,y);\n" +
-                "             if x>y then\n" +
-                "                 call p\n" +
-                "             else\n" +
-                "           Z:=z+x+y;\n" +
-                "         writeln(z);\n" +
-                "end.\n ");
+        "          var X, y, z :integer;\n" +
+        " procedure P; \n" +
+        "          var A :integer;\n" +
+        "              begin\n" +
+        "                  readln(a);\n" +
+        "                  if a=x then\n" +
+        "                      z:=z+x\n" +
+        "                  else begin\n" +
+        "            Z:=z+x;\n" +
+        "            call p;\n" +
+        "               end;\n" +
+        "                           end;\n" +
+        "        begin\n" +
+        "           Z:=0;\n" +
+        "           readln(x,y);\n" +
+        "             if x>y then\n" +
+        "                 call p\n" +
+        "             else\n" +
+        "           Z:=z+x+y;\n" +
+        "         writeln(z);\n" +
+        "end.\n ");
         jScrollPane2.setViewportView(Area_Texto);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 480, 450));
@@ -384,13 +384,12 @@ public class EditorCompilador extends javax.swing.JFrame {
     private void AnalisarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_AnalisarActionPerformed
 
         TextConsole.append("Programa inicializado\n");
-        listaToken.limpar();
-        getListaMunuAtt(listaToken);
+        lista.clear();
+        getListaMunuAtt(lista);
         String texto = String.valueOf(Area_Texto.getText());
         AnalizadorLexico cc = new AnalizadorLexico();
-        listaToken = cc.getPalavra(texto);
+        lista = cc.getPalavra(texto);
 
-        new AnalizadorSintatico().analisar(listaToken);
         if (cc.erroLexico == true) {
             TextConsole.setForeground(Color.RED);
             TextConsole.append("Ocorreu um Erro lexico verifique!\n");
@@ -399,7 +398,9 @@ public class EditorCompilador extends javax.swing.JFrame {
             TextConsole.append("Compilado com Sucesso!\n");
         }
 
-        getListaMunuAtt(listaToken);
+        getListaMunuAtt(lista);
+        new AnalizadorSintatico().analisar(lista);
+
     }// GEN-LAST:event_AnalisarActionPerformed
 
     private void NewDocActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_NewDocActionPerformed
@@ -420,16 +421,16 @@ public class EditorCompilador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_TextConsoleAncestorAdded
 
-    public void getListaMunuAtt(Lista lista) {
+    public void getListaMunuAtt(Stack<Token> lista) {
 
         modeloTable = (DefaultTableModel) Table.getModel();
         while (modeloTable.getRowCount() > 0) {
             modeloTable.removeRow(0);
         }
 
-        for (int i = 0; i < lista.getLista().size(); i++) {
+        for (int i = 0; i < lista.size(); i++) {
             Token tkn = new Token();
-            tkn = lista.getLista().get(i);
+            tkn = (Token) lista.get(i);
             modeloTable.addRow(new Object[] { tkn.getCodigo(), tkn.getNome(), tkn.getLinha() });
         }
         Table.setModel(modeloTable);
