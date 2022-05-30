@@ -116,55 +116,31 @@ public class EditorCompilador extends javax.swing.JFrame {
         Area_Texto.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
         Area_Texto.setRows(20);
         Area_Texto.setTabSize(4);
+        Area_Texto.setText("Program testeproc1;\n Var\n   X, y, z :integer;  \n Procedure P;\n Var\n   A :integer;\n Begin\n       Readln(a);\n       If a=x then\n            z:=z+x\n       Else begin\n               Z:=z-x;\n               Call p;\n       End;\n End;\n Begin\n       Z:=0;\n       Readln(x,y);\n           If x>y then\n           Call p\n       Else\n       Z:=z+x+y;\n Writeln(z);\nEnd.");
         Area_Texto.setToolTipText("");
         Area_Texto.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-//         Area_Texto.setText(" program testeproc1;\n" +
-//             "          var X, y, z :integer;\n" +
-//             " procedure P; \n" +
-//             "          var A :integer;\n" +
-//             "              begin\n" +
-//             "                  readln(a);\n" +
-//             "                  if a=x then\n" +
-//             "                      z:=z+x\n" +
-//             "                  else begin\n" +
-//             "            Z:=z+x;\n" +
-//             "            call p;\n" +
-//             "               end;\n" +
-// "                        end;\n" +
-//             "        begin\n" +
-//             "           Z:=0;\n" +
-//             "           readln(x,y);\n" +
-//             "             if x>y then\n" +
-//             "                 call p\n" +
-//             "             else\n" +
-//             "           Z:=z+x+y;\n" +
-//             "         writeln(z);\n" +
-//             "end.");
-
-        Area_Texto.setText("Program testeproc1;\n" +
-        " Var\n" +
-        "   X, y, z :integer;  \n" +
-        " Procedure P;\n" +
-        " Var\n" +
-        "   A :integer;\n" +
-        " Begin\n" +
-        "       Readln(a);\n" +
-        "       If a=x then\n" +
-        "            z:=z+x\n" +
-        "       Else begin\n" +
-        "               Z:=z-x;\n" +
-        "               Call p;\n" +
-        "       End;\n" +
-        " End;\n" +
-        " Begin\n" +
-        "       Z:=0;\n" +
-        "       Readln(x,y);\n" +
-        "           If x>y then\n" +
-        "           Call p\n" +
-        "       Else\n" +
-        "       Z:=z+x+y;\n" +
-        " Writeln(z);\n" +
-        "End.");
+        Area_Texto.setText(" program testeproc1;\n" +
+            "          var X, y, z :integer;\n" +
+            " procedure P; \n" +
+            "          var A :integer;\n" +
+            "              begin\n" +
+            "                  readln(a);\n" +
+            "                  if a=x then\n" +
+            "                      z:=z+x\n" +
+            "                  else begin\n" +
+            "            Z:=z+x;\n" +
+            "            call p;\n" +
+            "               end;\n" +
+            "                           end;\n" +
+            "        begin\n" +
+            "           Z:=0;\n" +
+            "           readln(x,y);\n" +
+            "             if x>y then\n" +
+            "                 call p\n" +
+            "             else\n" +
+            "           Z:=z+x+y;\n" +
+            "         writeln(z);\n" +
+            "end.\n ");
         jScrollPane2.setViewportView(Area_Texto);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 450, 450));
@@ -282,6 +258,7 @@ public class EditorCompilador extends javax.swing.JFrame {
 
         TextConsole.setColumns(20);
         TextConsole.setRows(5);
+        TextConsole.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         TextConsole.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 TextConsoleAncestorAdded(evt);
