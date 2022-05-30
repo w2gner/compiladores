@@ -42,8 +42,8 @@ public class AnalizadorSintatico {
                         System.out.println("PilhaX " + pilhaX.peek());
                     }
                 } else {
-                    System.out.println("ValorA encontrado= "+valorA+"\nvalorA encontrado= " + getBuscarPalavraPeloCodigo(valorA));
-                    System.out.println("ValorX esperado= "+valorX+"\nvalorX esperado= " + getBuscarPalavraPeloCodigo(valorX));
+                    System.out.println("Valor encontrado= " + getBuscarPalavraPeloCodigo(valorA));
+                    System.out.println("Valor esperado= " + getBuscarPalavraPeloCodigo(valorX));
                     // System.out.println("O algoritmo é invalido valores diferentes! ");
                     return;
                 }
