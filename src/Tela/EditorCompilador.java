@@ -140,7 +140,7 @@ public class EditorCompilador extends javax.swing.JFrame {
             "             else\n" +
             "           Z:=z+x+y;\n" +
             "         writeln(z);\n" +
-            "end.\n ");
+            "end.");
         jScrollPane2.setViewportView(Area_Texto);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 450, 450));
