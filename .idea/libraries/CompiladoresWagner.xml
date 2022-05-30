@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="CompiladoresWagner">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/CompiladoresWagner.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
