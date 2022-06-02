@@ -6,7 +6,9 @@ import java.util.StringTokenizer;
 
 /**
  *
- * @author ventura
+ * @author Felipe Costa de jesus
+ * @author Pedro Ventura
+ * @author Wagner
  */
 public class Gramatica {
 
@@ -333,7 +335,7 @@ public class Gramatica {
         GRAMATICA.put("86,46", ",|INTEIRO|RPINTEIRO");
     }
 
-    public static String getBuscarPalavraPeloCodigo(Integer codigo) {
+    public static String getPalavra(Integer codigo) {
         if (codigo == null) {
             return null;
         }
@@ -345,23 +347,18 @@ public class Gramatica {
         return null;
     }
 
-    /**
-     * Este mtodo retorna uma lista com os cdigos equivalentes as palavras que
-     * foram derivadas
-     */
-    public static Integer[] geraDadosCruzamentoTabParsingToken(String str) {
-        if ((str != null) && (str.length() != 0) && !"null".equals(str)) {
-            StringTokenizer strTokenizer = new StringTokenizer(str, "|");
-            Integer[] dados = new Integer[strTokenizer.countTokens()];
+    public static Integer[] getParsing(String valor) {
+        if ((valor != null) && (valor.length() != 0) && !"null".equals(valor)) {
+            StringTokenizer tokens = new StringTokenizer(valor, "|");
+            Integer[] parsing = new Integer[tokens.countTokens()];
             int i = 0;
 
-            while (strTokenizer.hasMoreTokens()) {
-                String palavra = strTokenizer.nextToken();
-                dados[i++] = TERMINAIS_E_NAO_TERMINAIS.get(palavra);
+            while (tokens.hasMoreTokens()) {
+                String palavra = tokens.nextToken();
+                parsing[i++] = TERMINAIS_E_NAO_TERMINAIS.get(palavra);
             }
-            return dados;
+            return parsing;
         }
         return null;
     }
-
 }
