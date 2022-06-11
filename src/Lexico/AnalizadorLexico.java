@@ -93,7 +93,42 @@ public class AnalizadorLexico
                     if (String.valueOf(caracter).matches(" ")||String.valueOf(caracter).matches("\t")) 
                     {
                         continue;
-                    } 
+                    }
+                    
+                    // TODO AJUSTAR PROXIMO CARACTER
+                    // Verificação de comentario de linha
+                    // comentario de linha sera representado por os seguintes simbolos (*  *)
+                    if (String.valueOf(caracter).matches("[(]")) 
+                    {
+                        contadorDelinha++;
+                        char a;
+                        int j = i + 1;
+                        a = texto.charAt(j);
+
+                        // System.out.println(caracter);
+                        // System.out.println(a);
+
+                        if (String.valueOf(a).matches("[*]")) 
+                        {
+                            a = texto.charAt(j+1);
+                            // System.out.println(a);
+                            if (!String.valueOf(a).matches("[*]")) 
+                            {
+                                if (!String.valueOf(a).matches("[)]"))
+                                {         
+                                    while (!String.valueOf(a).matches("[)]")) 
+                                    {                                                                            
+                                        a = texto.charAt(j);
+                                        // System.out.println(a);
+                                        j++;
+                                        i = j;
+                                        i--;
+                                    }
+                                }
+                            } 
+                        } 
+                    }
+
                     else 
                     {
                         
@@ -120,6 +155,7 @@ public class AnalizadorLexico
                         } 
                         else 
                         {
+                            //TODO VERIFICAR REGEX NUMERO NEGATIVO
                             // Verificação de inteiros 
                             if (String.valueOf(caracter).matches("[0-9]")) 
                             {                                
@@ -300,62 +336,6 @@ public class AnalizadorLexico
                                                     palavraToken = "";
 
                                                 } 
-                                                else 
-                                                {
-
-                                                    // Verificação de comentario de linha
-                                                    // comentario de linha sera representado por os seguintes simbolos (*  *)
-                                                    if (String.valueOf(caracter).matches("[(]")) 
-                                                    {
-                                                        //contadorDelinha++;
-                                                        char a;
-                                                        int j = i + 1;
-                                                        a = texto.charAt(j);
-                                                        
-                                                        if (String.valueOf(a).matches("[*]")) 
-                                                        {
-                                                            a = texto.charAt(j+1);
-                                                            if (!String.valueOf(a).matches("[*]")) 
-                                                            {
-                                                                if (!String.valueOf(a).matches("[)]"))
-                                                                {         
-                                                                    while (!String.valueOf(a).matches("[)]")) 
-                                                                    {                                                                            
-                                                                        a = texto.charAt(j);
-                                                                        j++;
-                                                                        i = j;
-                                                                        i--;
-                                                                    }
-                                                                }
-                                                            } 
-                                                        }
-                                                    } 
-                                                    else if (String.valueOf(caracter).matches(".")) 
-                                                    {
-                                                        palavraToken += String.valueOf(caracter);
-                                                        char a;
-                                                        int j = i + 1;
-                                                        a = texto.charAt(j);
-                                                        
-                                                        if (String.valueOf(a).matches("[.]")) 
-                                                        {
-                                                            palavraToken += String.valueOf(a);
-
-                                                            i = j;
-                                                        }
-                                                        
-                                                        setLista(palavraToken, contadorDelinha);
-                                                        palavraToken = "";
-
-                                                    } 
-                                                    else 
-                                                    {
-                                                        // Caso não entre em nenhuma verificação acima é um caracter invalido 
-                                                        JOptionPane.showMessageDialog(null, "Erro lexico houve uma interrupção erro na linha : " + contadorDelinha + "\nPalavra: " + caracter);
-                                                        erroLexico = true;
-                                                        break;
-                                                    }
-                                                }
                                             }
                                         }
                                     }

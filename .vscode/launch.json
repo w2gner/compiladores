@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch EditorCompilador",
+            "request": "launch",
+            "mainClass": "Tela.EditorCompilador",
+            "projectName": "compiladores_35cb1268"
+        },
+        {
+            "type": "java",
             "name": "Launch Java Program",
             "request": "launch",
             "mainClass": ""

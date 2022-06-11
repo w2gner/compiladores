@@ -23,18 +23,20 @@ public class AnalizadorSintatico {
 
             if (valorX < 52) {
                 if (valorX == valorA) {
-                    System.out.println("Tamanho PilhaA= " + pilhaA.size());
-                    System.out.println("PilhaA " + pilhaA.peek().getCodigo());
-                    System.out.println("PilhaX " + pilhaX.peek());
+                    // System.out.println("Tamanho PilhaA= " + pilhaA.size());
+                    // System.out.println("PilhaA " + pilhaA.peek().getCodigo());
+                    // System.out.println("PilhaX " + pilhaX.peek());
                     pilhaA.pop();
                     pilhaX.pop();
-                    if (!pilhaA.empty() && !pilhaX.empty()) {
-                        System.out.println("PilhaA " + pilhaA.peek().getCodigo());
-                        System.out.println("PilhaX " + pilhaX.peek());
-                    }
+                    // if (!pilhaA.empty() && !pilhaX.empty()) {
+                    //     System.out.println("PilhaA " + pilhaA.peek().getCodigo());
+                    //     System.out.println("PilhaX " + pilhaX.peek());
+                    // }
                 } else {
+                    System.out.println("Linha " + pilhaA.peek().getLinha());
                     System.out.println("Valor encontrado= " + getPalavra(valorA));
                     System.out.println("Valor esperado= " + getPalavra(valorX));
+                    System.out.println("===Análise Sintática===");
                     return;
                 }
             } else {
