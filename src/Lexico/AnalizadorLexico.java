@@ -316,7 +316,7 @@ public class AnalizadorLexico
                                                     palavraToken += String.valueOf(caracter);
                                                     char a;
                                                     int j = i + 1;
-                                                    System.out.println(palavraToken);
+                                                    //System.out.println(palavraToken);
                                                     
                                                     if( i +1 == texto.length())
                                                     {
