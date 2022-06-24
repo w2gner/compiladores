@@ -150,7 +150,6 @@ public class AnalizadorLexico {
                                     // "Erro lexico o numero não deve ter ponto decimal\nLinha: " + contadorDelinha
                                     // + "\nPalavra: " + palavraToken);
                                     erro(contadorDelinha, palavraToken);
-                                    erroLexico = true;
                                     break;
                                 }
 

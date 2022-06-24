@@ -46,15 +46,10 @@ public class AnalizadorSintatico {
 
             if (valorX < 52) {
                 if (valorX == valorA) {
-
                     pilhaA.pop();
                     pilhaX.pop();
-
                 } else {
-                    // System.out.println("Linha " + pilhaA.peek().getLinha());
-
-                    setMsg("Valor encontrado: " + getPalavra(valorA));
-
+                    setMsg("O algoritmo é invalido valores diferentes! ");
                     // System.out.println("Valor encontrado= " + getPalavra(valorA));
                     // System.out.println("Valor esperado= " + getPalavra(valorX));
                     // System.out.println("===Análise Sintática===");
@@ -78,6 +73,7 @@ public class AnalizadorSintatico {
 
     private void validarPilhas(Stack<Token> pilhaA, Stack<Integer> pilhaX) {
         if (pilhaX.isEmpty() && pilhaA.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O algoritmo é válido");
             System.out.println("O algoritmo é válido");
         } else if (pilhaA.isEmpty()) {
 
@@ -85,6 +81,7 @@ public class AnalizadorSintatico {
             erro("Valor esperado: " + getPalavra(pilhaX.firstElement()) + "\n" + getMsg());
             System.out.println("O algoritmo é invalido");
         } else {
+            erro("O algoritmo é invalido");
             System.out.println("O algoritmo é invalido");
         }
         System.out.println("===Análise Sintática===");
