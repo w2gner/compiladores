@@ -17,7 +17,7 @@ public class Token {
     }
 
     public Token(Integer codigo, String nome, Integer lineNumber) {
-        super();
+        // super();
         this.codigo = codigo;
         this.linha = lineNumber;
         this.nome = nome;

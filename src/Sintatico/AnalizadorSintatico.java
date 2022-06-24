@@ -29,8 +29,8 @@ public class AnalizadorSintatico {
     }
 
     public void erro(String msg) {
-        JOptionPane.showMessageDialog(null,
-                "Erro Sintática houve uma interrupção\n" + msg, "",
+        JOptionPane.showMessageDialog(null, msg,
+                "Erro Sintática houve uma interrupção",
                 JOptionPane.ERROR_MESSAGE);
         // erroLexico = true;
     }
@@ -49,11 +49,16 @@ public class AnalizadorSintatico {
                     pilhaA.pop();
                     pilhaX.pop();
                 } else {
-                    setMsg("O algoritmo é invalido valores diferentes! ");
-                    // System.out.println("Valor encontrado= " + getPalavra(valorA));
-                    // System.out.println("Valor esperado= " + getPalavra(valorX));
-                    // System.out.println("===Análise Sintática===");
-                    return;
+                    // setMsg("O algoritmo é invalido valores diferentes! ");
+                    System.out.println("Valor encontrado= " + getPalavra(valorA));
+                    System.out.println("Valor esperado= " + getPalavra(valorX));
+                    System.out.println("LINHA: " + pilhaA.peek().getLinha());
+                    erro("Valor encontrado: " + getPalavra(valorA) + "\n\tValor esperado: " + getPalavra(valorX)
+                            + "\nLINHA: " + (pilhaA.pop().getLinha() - 1));
+                    // JOptionPane.showMessageDialog(null, "O algoritmo é válido");
+                    System.out.println("===Análise Sintática===\n");
+                    break;
+                    // return;
                 }
             } else {
                 Integer[] valorAX = buscar(valorX, valorA);
@@ -79,12 +84,11 @@ public class AnalizadorSintatico {
 
             System.out.println("Valor esperado: " + getPalavra(pilhaX.firstElement()));
             erro("Valor esperado: " + getPalavra(pilhaX.firstElement()) + "\n" + getMsg());
-            System.out.println("O algoritmo é invalido");
         } else {
             erro("O algoritmo é invalido");
-            System.out.println("O algoritmo é invalido");
+            // System.out.println("O algoritmo é invalido");
         }
-        System.out.println("===Análise Sintática===");
+        // System.out.println("===Análise Sintática===");
     }
 
     private Stack<Token> reverseStack(Stack<Token> pilha) {

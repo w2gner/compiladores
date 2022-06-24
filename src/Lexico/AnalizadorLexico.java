@@ -358,185 +358,189 @@ public class AnalizadorLexico {
 
         Boolean comentarios = false;
 
-        for (Integer linha = 1; linha <= linhas.size(); linha++) {
-            String l = linhas.get(linha - 1);
+        try {
+            for (Integer linha = 1; linha <= linhas.size(); linha++) {
+                String l = linhas.get(linha - 1);
 
-            String palavra = "";
-            for (Integer i = 0; i < l.length(); i++) {
-                Character caracter = l.charAt(i);
-                // comentarios
-                if (caracter == '(' && i < l.length() + 1 && l.charAt(i + 1) == '*') {
-                    if (palavra != "") {
-                        erro(linha, "Erro, inicio de comentario com empilhagem no palavra.");
-                        // System.out.println("Erro, inicio de comentario com empilhagem no palavra.");
-                        break;
+                String palavra = "";
+                for (Integer i = 0; i < l.length(); i++) {
+                    Character caracter = l.charAt(i);
+                    // comentarios
+                    if (caracter == '(' && i < l.length() + 1 && l.charAt(i + 1) == '*') {
+                        if (palavra != "") {
+                            erro(linha, "Erro, inicio de comentario com empilhagem no palavra.");
+                            // System.out.println("Erro, inicio de comentario com empilhagem no palavra.");
+                            // break;
+                        }
+                        comentarios = true;
+                    } else if (caracter == ')' && 1 < l.length() && l.charAt(i - 1) == '*') {
+                        comentarios = false;
+                    } else if (comentarios) {
+                        continue;
                     }
-                    comentarios = true;
-                } else if (caracter == ')' && 1 < l.length() && l.charAt(i - 1) == '*') {
-                    comentarios = false;
-                } else if (comentarios) {
-                    continue;
-                }
-                // Logica Literal
-                else if (caracter == '\'') {
-                    palavra = "";
-                    Integer j = i + 1;
-                    if (j < l.length()) {
-                        caracter = l.charAt(j);
+                    // Logica Literal
+                    else if (caracter == '\'') {
+                        palavra = "";
+                        Integer j = i + 1;
+                        if (j < l.length()) {
+                            caracter = l.charAt(j);
 
-                        while (caracter != '\'') {
+                            while (caracter != '\'') {
+
+                                palavra += caracter.toString();
+                                j++;
+                                if (j == l.length()) {
+                                    erro(linha, "Literal não foi fechado na linha de abertura.");
+                                    break;
+                                }
+                                caracter = l.charAt(j);
+                            }
+                        } else {
+                            erro(linha, "Literal não foi fechado na linha de abertura.");
+                            break;
+                        }
+
+                        if (palavra.length() > 255) {
+                            erro(linha, "Literal com tamanho maior que 255 caracteres.");
+                            erroLexico = true;
+                            break;
+                        }
+
+                        Token auxToken = geradorToken("literal", palavra, gTokens, linha);
+                        if (auxToken != null) {
+                            tokens.add(auxToken);
+                            palavra = "";
+                        }
+                        i = j;
+                        continue;
+                    }
+                    // Logica Identificadores OU Palavra Reservada
+                    else if ((caracter >= 'a' && caracter <= 'z') || (caracter >= 'A' && caracter <= 'Z')) {
+
+                        Integer j = i;
+                        palavra = "";
+
+                        while ((caracter >= 'a' && caracter <= 'z')
+                                || (caracter >= 'A' && caracter <= 'Z')
+                                || (caracter >= '0' && caracter <= '9')
+                                || (caracter == '_')) {
 
                             palavra += caracter.toString();
                             j++;
                             if (j == l.length()) {
-                                erro(linha, "Literal não foi fechado na linha de abertura.");
-                                // JOptionPane.showMessageDialog(null,
-                                // "Lexico" + linha + "Literal não foi fechado na linha de abertura.");
-                                // throw new EditorException("Lexico", linha, "Literal não foi fechado na linha
-                                // de abertura.");
                                 break;
                             }
                             caracter = l.charAt(j);
 
                         }
-                    } else {
-                        erro(linha, "Literal não foi fechado na linha de abertura.");
-                        break;
-                    }
+                        if (palavra.length() > 30) {
+                            // System.out.println("erro linha: " + linha);
+                            erro(linha, "Identificador com tamanho maior que 30 caracteres.");
+                            // break;
+                        }
+                        Token auxToken = geradorToken("identificador", palavra, gTokens, linha);
+                        if (auxToken != null) {
+                            tokens.add(auxToken);
+                            palavra = "";
+                        }
 
-                    if (palavra.length() > 255) {
-                        erro(linha, "Literal com tamanho maior que 255 caracteres.");
-                        erroLexico = true;
-                        break;
-                    }
-
-                    Token auxToken = geradorToken("literal", palavra, gTokens, linha);
-                    if (auxToken != null) {
-                        tokens.add(auxToken);
                         palavra = "";
+                        i = j - 1;
+                        continue;
                     }
-                    i = j;
-                    continue;
-                }
-                // Logica Identificadores OU Palavra Reservada
-                else if ((caracter >= 'a' && caracter <= 'z') || (caracter >= 'A' && caracter <= 'Z')) {
+                    // Inteiro
+                    else if ((caracter >= '0' && caracter <= '9') ||
+                            (caracter == '-' && i + 1 < l.length() &&
+                                    (l.charAt(i + 1) >= '0' && l.charAt(i + 1) <= '9'))) {
+                        Integer j = i;
+                        palavra = "";
+                        if (caracter == '-') {
+                            palavra += caracter.toString();
+                            j++;
 
-                    Integer j = i;
-                    palavra = "";
+                        }
+                        if (j < l.length() - 1) {
+                            caracter = l.charAt(j);
+                        }
+                        while (caracter >= '0' && caracter <= '9') {
 
-                    while ((caracter >= 'a' && caracter <= 'z')
-                            || (caracter >= 'A' && caracter <= 'Z')
-                            || (caracter >= '0' && caracter <= '9')
-                            || (caracter == '_')) {
+                            palavra += caracter.toString();
+                            j++;
+                            if (j == l.length()) {
+                                break;
+                            }
+                            caracter = l.charAt(j);
 
-                        palavra += caracter.toString();
-                        j++;
-                        if (j == l.length()) {
+                        }
+
+                        Token auxToken = geradorToken("inteiro", palavra, gTokens, linha);
+
+                        Integer local_int = Integer.parseInt(palavra);
+                        if (local_int > 32767 || local_int < -32767) {
+                            erro(linha, "Inteiro com tamanho incorreto.");
                             break;
                         }
-                        caracter = l.charAt(j);
 
-                    }
-                    if (palavra.length() > 30) {
-                        // System.out.println("erro linha: " + linha);
-                        erro(linha, "Identificador com tamanho maior que 30 caracteres.");
-                        break;
-                    }
-                    Token auxToken = geradorToken("identificador", palavra, gTokens, linha);
-                    if (auxToken != null) {
-                        tokens.add(auxToken);
-                        palavra = "";
-                    }
-
-                    palavra = "";
-                    i = j - 1;
-                    continue;
-                }
-                // Inteiro
-                else if ((caracter >= '0' && caracter <= '9') ||
-                        (caracter == '-' && i + 1 < l.length() &&
-                                (l.charAt(i + 1) >= '0' && l.charAt(i + 1) <= '9'))) {
-                    Integer j = i;
-                    palavra = "";
-                    if (caracter == '-') {
-                        palavra += caracter.toString();
-                        j++;
-
-                    }
-                    if (j < l.length() - 1) {
-                        caracter = l.charAt(j);
-                    }
-                    while (caracter >= '0' && caracter <= '9') {
-
-                        palavra += caracter.toString();
-                        j++;
-                        if (j == l.length()) {
-                            break;
+                        if (auxToken != null) {
+                            tokens.add(auxToken);
+                            palavra = "";
                         }
-                        caracter = l.charAt(j);
 
-                    }
-
-                    Token auxToken = geradorToken("inteiro", palavra, gTokens, linha);
-
-                    Integer local_int = Integer.parseInt(palavra);
-                    if (local_int > 32767 || local_int < -32767) {
-                        erro(linha, "Inteiro com tamanho incorreto.");
-                        break;
-                    }
-
-                    if (auxToken != null) {
-                        tokens.add(auxToken);
                         palavra = "";
+                        i = j - 1;
+                        continue;
                     }
+                    // Outros Simbolos
+                    else if (caracter != ' ' && caracter != '\t') {
 
-                    palavra = "";
-                    i = j - 1;
-                    continue;
-                }
-                // Outros Simbolos
-                else if (caracter != ' ' && caracter != '\t') {
+                        palavra += caracter.toString();
 
-                    palavra += caracter.toString();
+                        Token auxToken = geradorToken(null, palavra, gTokens, linha);
 
-                    Token auxToken = geradorToken(null, palavra, gTokens, linha);
+                        if (auxToken != null) {
 
-                    if (auxToken != null) {
+                            // Verifica se esse acumulado mais o próximo elemento tambem é um token
+                            if (l.length() > i + 1) {
+                                palavra += l.charAt(i + 1);
+                                Token auxToken2 = geradorToken("", palavra, gTokens, linha);
 
-                        // Verifica se esse acumulado mais o próximo elemento tambem é um token
-                        if (l.length() > i + 1) {
-                            palavra += l.charAt(i + 1);
-                            Token auxToken2 = geradorToken("", palavra, gTokens, linha);
-                            if (auxToken2 != null) {
-                                tokens.add(auxToken2);
-                                i++;
+                                if (auxToken2 != null) {
+                                    tokens.add(auxToken2);
+                                    i++;
+                                } else {
+                                    tokens.add(auxToken);
+                                }
                             } else {
                                 tokens.add(auxToken);
                             }
-                        } else {
-                            tokens.add(auxToken);
+                            palavra = "";
                         }
 
-                        palavra = "";
+                    } else {
+                        // continue;
                     }
-
                 }
 
             }
+            if (comentarios) {
+                // throw new EditorException("Lexico", linha.size(), "Comentario não foram
+                // fechados.");
+                erro(linhas.size(), "Comentario não foram fechados.");
 
-        }
-        if (comentarios) {
-            // throw new EditorException("Lexico", linha.size(), "Comentario não foram
-            // fechados.");
-            erro(linhas.size(), "Comentario não foram fechados.");
+            }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            // TODO: handle exception
         }
         return tokens;
     }
 
     private Token geradorToken(String tipo, String palavra, List<Token> tokens, Integer linha) {
         try {
+
             if (palavra == null || palavra == "") {
+                System.out.println("");
                 System.out.println("NUll?");
                 return null;
             }
@@ -559,6 +563,7 @@ public class AnalizadorLexico {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
