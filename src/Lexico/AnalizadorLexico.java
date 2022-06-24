@@ -34,7 +34,8 @@ public class AnalizadorLexico {
         if (palavraToken.length() <= 30) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "O Idenficador ultrapassou o limite permitido de 30 caracteres", "",
+            JOptionPane.showMessageDialog(null, " O Idenficador ultrapassou o limite permitido de 30 caracteres!",
+                    "",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -145,9 +146,10 @@ public class AnalizadorLexico {
                                 }
 
                                 if (String.valueOf(caracter).matches("[0-9],")) {
-                                    JOptionPane.showMessageDialog(null,
-                                            "Erro lexico o numero não deve ter ponto decimal\nLinha: " + contadorDelinha
-                                                    + "\nPalavra: " + palavraToken);
+                                    // JOptionPane.showMessageDialog(null,
+                                    // "Erro lexico o numero não deve ter ponto decimal\nLinha: " + contadorDelinha
+                                    // + "\nPalavra: " + palavraToken);
+                                    erro(contadorDelinha, palavraToken);
                                     erroLexico = true;
                                     break;
                                 }
@@ -186,11 +188,12 @@ public class AnalizadorLexico {
 
                                     j--;
                                     i = j;
-                                    if (limitChar > 255) {
-                                        JOptionPane.showMessageDialog(null,
-                                                "Sequencia de caracteres literais exedeu o limite de 255\nQuantidade de Caracteres: "
-                                                        + limitChar,
-                                                "", JOptionPane.ERROR_MESSAGE);
+                                    if (FUN_tamanho_caracter(palavraToken)) {
+                                        // JOptionPane.showMessageDialog(null,
+                                        // "Sequencia de caracteres literais exedeu o limite de 255\nQuantidade de
+                                        // Caracteres: "
+                                        // + limitChar,
+                                        // "", JOptionPane.ERROR_MESSAGE);
                                         erroLexico = true;
                                     } else {
                                         token.setCodigo(48);
@@ -354,63 +357,58 @@ public class AnalizadorLexico {
 
         List<Token> gTokens = gramatica.getTokens();
 
-        Boolean comments = false;
+        Boolean comentarios = false;
 
         for (Integer linha = 1; linha <= linhas.size(); linha++) {
             String l = linhas.get(linha - 1);
 
             String palavra = "";
             for (Integer i = 0; i < l.length(); i++) {
-                Character charac = l.charAt(i);
-                // Lógica comentarios
-                if (charac == '(' && i < l.length() + 1 && l.charAt(i + 1) == '*') {
+                Character caracter = l.charAt(i);
+                // comentarios
+                if (caracter == '(' && i < l.length() + 1 && l.charAt(i + 1) == '*') {
                     if (palavra != "") {
-                        System.out.println("Erro, inicio de comentario com empilhagem no palavra.");
+                        erro(linha, "Erro, inicio de comentario com empilhagem no palavra.");
+                        // System.out.println("Erro, inicio de comentario com empilhagem no palavra.");
+                        break;
                     }
-                    comments = true;
-                } else if (charac == ')' && 1 < l.length() && l.charAt(i - 1) == '*') {
-                    comments = false;
-                } else if (comments) {
+                    comentarios = true;
+                } else if (caracter == ')' && 1 < l.length() && l.charAt(i - 1) == '*') {
+                    comentarios = false;
+                } else if (comentarios) {
                     continue;
                 }
-
                 // Logica Literal
-                else if (charac == '\'') {
+                else if (caracter == '\'') {
                     palavra = "";
                     Integer j = i + 1;
                     if (j < l.length()) {
-                        charac = l.charAt(j);
+                        caracter = l.charAt(j);
 
-                        while (charac != '\'') {
+                        while (caracter != '\'') {
 
-                            palavra += charac.toString();
+                            palavra += caracter.toString();
                             j++;
                             if (j == l.length()) {
-                                JOptionPane.showMessageDialog(null,
-                                        "Lexico" + linha + "Literal não foi fechado na linha de abertura.");
+                                erro(linha, "Literal não foi fechado na linha de abertura.");
+                                // JOptionPane.showMessageDialog(null,
+                                // "Lexico" + linha + "Literal não foi fechado na linha de abertura.");
                                 // throw new EditorException("Lexico", linha, "Literal não foi fechado na linha
                                 // de abertura.");
+                                break;
                             }
-                            charac = l.charAt(j);
+                            caracter = l.charAt(j);
 
                         }
                     } else {
-                        // throw new EditorException("Lexico", linha, "Literal não foi fechado na linha
-                        // de abertura.");
-                        JOptionPane.showMessageDialog(null,
-                                "Lexico" + linha + "Literal não foi fechado na linha de abertura.");
-
+                        erro(linha, "Literal não foi fechado na linha de abertura.");
+                        break;
                     }
 
                     if (palavra.length() > 255) {
-                        // throw new EditorException("Lexico", linha, "Literal com tamanho maior que 255
-                        // caracteres.");
-                        JOptionPane.showMessageDialog(null,
-                                "Sequencia de caracteres literais exedeu o limite de 255\nQuantidade de Caracteres: "
-                                        + linha,
-                                "", JOptionPane.ERROR_MESSAGE);
+                        erro(linha, "Literal com tamanho maior que 255 caracteres.");
                         erroLexico = true;
-
+                        break;
                     }
 
                     Token auxToken = geradorToken("literal", palavra, gTokens, linha);
@@ -422,31 +420,28 @@ public class AnalizadorLexico {
                     continue;
                 }
                 // Logica Identificadores OU Palavra Reservada
-                else if ((charac >= 'a' && charac <= 'z') || (charac >= 'A' && charac <= 'Z')) {
+                else if ((caracter >= 'a' && caracter <= 'z') || (caracter >= 'A' && caracter <= 'Z')) {
 
                     Integer j = i;
                     palavra = "";
 
-                    while ((charac >= 'a' && charac <= 'z')
-                            || (charac >= 'A' && charac <= 'Z')
-                            || (charac >= '0' && charac <= '9')
-                            || (charac == '_')) {
+                    while ((caracter >= 'a' && caracter <= 'z')
+                            || (caracter >= 'A' && caracter <= 'Z')
+                            || (caracter >= '0' && caracter <= '9')
+                            || (caracter == '_')) {
 
-                        palavra += charac.toString();
+                        palavra += caracter.toString();
                         j++;
                         if (j == l.length()) {
                             break;
                         }
-                        charac = l.charAt(j);
+                        caracter = l.charAt(j);
 
                     }
                     if (palavra.length() > 30) {
-                        System.out.println("erro linha: " + linha);
-                        // throw new EditorException("Lexico", linha,
-                        // "Identificador com tamanho maior que 30 caracteres.");
-                        JOptionPane.showMessageDialog(null,
-                                "Lexico\n" + linha + "Identificador com tamanho maior que 30 caracteres.", "",
-                                JOptionPane.ERROR_MESSAGE);
+                        // System.out.println("erro linha: " + linha);
+                        erro(linha, "Identificador com tamanho maior que 30 caracteres.");
+                        break;
                     }
                     Token auxToken = geradorToken("identificador", palavra, gTokens, linha);
                     if (auxToken != null) {
@@ -459,27 +454,27 @@ public class AnalizadorLexico {
                     continue;
                 }
                 // Inteiro
-                else if ((charac >= '0' && charac <= '9') ||
-                        (charac == '-' && i + 1 < l.length() &&
+                else if ((caracter >= '0' && caracter <= '9') ||
+                        (caracter == '-' && i + 1 < l.length() &&
                                 (l.charAt(i + 1) >= '0' && l.charAt(i + 1) <= '9'))) {
                     Integer j = i;
                     palavra = "";
-                    if (charac == '-') {
-                        palavra += charac.toString();
+                    if (caracter == '-') {
+                        palavra += caracter.toString();
                         j++;
 
                     }
                     if (j < l.length() - 1) {
-                        charac = l.charAt(j);
+                        caracter = l.charAt(j);
                     }
-                    while (charac >= '0' && charac <= '9') {
+                    while (caracter >= '0' && caracter <= '9') {
 
-                        palavra += charac.toString();
+                        palavra += caracter.toString();
                         j++;
                         if (j == l.length()) {
                             break;
                         }
-                        charac = l.charAt(j);
+                        caracter = l.charAt(j);
 
                     }
 
@@ -487,11 +482,8 @@ public class AnalizadorLexico {
 
                     Integer local_int = Integer.parseInt(palavra);
                     if (local_int > 32767 || local_int < -32767) {
-                        // throw new EditorException("Lexico", linha, "Inteiro com tamanho incorreto.");
-                        JOptionPane.showMessageDialog(null,
-                                "O numero passou do limite\nValor permitido: numero maior que -32767 e menor que 32767 ",
-                                "",
-                                JOptionPane.ERROR_MESSAGE);
+                        erro(linha, "Inteiro com tamanho incorreto.");
+                        break;
                     }
 
                     if (auxToken != null) {
@@ -504,9 +496,9 @@ public class AnalizadorLexico {
                     continue;
                 }
                 // Outros Simbolos
-                else if (charac != ' ' && charac != '\t') {
+                else if (caracter != ' ' && caracter != '\t') {
 
-                    palavra += charac.toString();
+                    palavra += caracter.toString();
 
                     Token auxToken = geradorToken(null, palavra, gTokens, linha);
 
@@ -534,10 +526,11 @@ public class AnalizadorLexico {
             }
 
         }
-        if (comments) {
+        if (comentarios) {
             // throw new EditorException("Lexico", linha.size(), "Comentario não foram
             // fechados.");
-            JOptionPane.showMessageDialog(null, "Lexico" + linhas.size() + "Comentario não foram fechados.");
+            erro(linhas.size(), "Comentario não foram fechados.");
+
         }
         return tokens;
     }

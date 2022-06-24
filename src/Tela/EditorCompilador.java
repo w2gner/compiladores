@@ -643,6 +643,7 @@ public class EditorCompilador extends javax.swing.JFrame {
 
         if (cc.erroLexico == true) {
             TextConsole.setForeground(Color.RED);
+
             TextConsole.append("Ocorreu um Erro lexico verifique!\n");
         } else {
             TextConsole.setForeground(Color.GREEN);
