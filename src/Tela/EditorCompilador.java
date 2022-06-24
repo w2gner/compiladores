@@ -14,6 +14,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -56,7 +58,8 @@ public class EditorCompilador extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jMenu2 = new javax.swing.JMenu();
@@ -116,31 +119,32 @@ public class EditorCompilador extends javax.swing.JFrame {
         Area_Texto.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
         Area_Texto.setRows(20);
         Area_Texto.setTabSize(4);
-        Area_Texto.setText("Program testeproc1;\n Var\n   X, y, z :integer;  \n Procedure P;\n Var\n   A :integer;\n Begin\n       Readln(a);\n       If a=x then\n            z:=z+x\n       Else begin\n               Z:=z-x;\n               Call p;\n       End;\n End;\n Begin\n       Z:=0;\n       Readln(x,y);\n           If x>y then\n           Call p\n       Else\n       Z:=z+x+y;\n Writeln(z);\nEnd.");
+        Area_Texto.setText(
+                "Program testeproc1;\n Var\n   X, y, z :integer;  \n Procedure P;\n Var\n   A :integer;\n Begin\n       Readln(a);\n       If a=x then\n            z:=z+x\n       Else begin\n               Z:=z-x;\n               Call p;\n       End;\n End;\n Begin\n       Z:=0;\n       Readln(x,y);\n           If x>y then\n           Call p\n       Else\n       Z:=z+x+y;\n Writeln(z);\nEnd.");
         Area_Texto.setToolTipText("");
         Area_Texto.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         Area_Texto.setText(" program testeproc1;\n" +
-            "          var X, y, z :integer;\n" +
-            " procedure P; \n" +
-            "          var A :integer;\n" +
-            "              begin\n" +
-            "                  readln(a);\n" +
-            "                  if a=x then\n" +
-            "                      z:=z+x\n" +
-            "                  else begin\n" +
-            "            Z:=z+x;\n" +
-            "            call p;\n" +
-            "               end;\n" +
-            "                           end;\n" +
-            "        begin\n" +
-            "           Z:=0;\n" +
-            "           readln(x,y);\n" +
-            "             if x>y then\n" +
-            "                 call p\n" +
-            "             else\n" +
-            "           Z:=z+x+y;\n" +
-            "         writeln(z);\n" +
-            "end.");
+                "          var X, y, z :integer;\n" +
+                " procedure P; \n" +
+                "          var A :integer;\n" +
+                "              begin\n" +
+                "                  readln(a);\n" +
+                "                  if a=x then\n" +
+                "                      z:=z+x\n" +
+                "                  else begin\n" +
+                "            Z:=z+x;\n" +
+                "            call p;\n" +
+                "               end;\n" +
+                "                           end;\n" +
+                "        begin\n" +
+                "           Z:=0;\n" +
+                "           readln(x,y);\n" +
+                "             if x>y then\n" +
+                "                 call p\n" +
+                "             else\n" +
+                "           Z:=z+x+y;\n" +
+                "         writeln(z);\n" +
+                "end.\n ");
         jScrollPane2.setViewportView(Area_Texto);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 450, 450));
@@ -151,26 +155,25 @@ public class EditorCompilador extends javax.swing.JFrame {
         getContentPane().add(Nome_Programa, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 280, 30));
 
         Table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "CÓDIGO", "TOKEN", "LINHA"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
+                new Object[][] {
+                        { null, null, null },
+                        { null, null, null },
+                        { null, null, null },
+                        { null, null, null },
+                        { null, null, null },
+                        { null, null, null },
+                        { null, null, null },
+                        { null, null, null }
+                },
+                new String[] {
+                        "CÓDIGO", "TOKEN", "LINHA"
+                }) {
+            boolean[] canEdit = new boolean[] {
+                    false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         Table.setVerifyInputWhenFocusTarget(false);
@@ -196,7 +199,8 @@ public class EditorCompilador extends javax.swing.JFrame {
         });
         getContentPane().add(SairIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 40, 40));
 
-        AbrirIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Tela/icons8-open-file-folder-24 (1).png"))); // NOI18N
+        AbrirIcon
+                .setIcon(new javax.swing.ImageIcon(getClass().getResource("/Tela/icons8-open-file-folder-24 (1).png"))); // NOI18N
         AbrirIcon.setAutoscrolls(true);
         AbrirIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         AbrirIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -263,8 +267,10 @@ public class EditorCompilador extends javax.swing.JFrame {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 TextConsoleAncestorAdded(evt);
             }
+
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
+
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
@@ -619,19 +625,28 @@ public class EditorCompilador extends javax.swing.JFrame {
 
     private void AnalisarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_AnalisarActionPerformed
 
-        TextConsole.append("Programa inicializado\n");
+        // TextConsole.append("Programa inicializado\n");
         lista.clear();
         getListaMunuAtt(lista);
         String texto = String.valueOf(Area_Texto.getText());
         AnalizadorLexico cc = new AnalizadorLexico();
-        lista = cc.getPalavra(texto);
+
+        String[] FullText = texto.split("\n");
+
+        List<String> linhas = new ArrayList<String>();
+
+        for (String line : FullText) {
+            linhas.add(line);
+        }
+        // lista = cc.getPalavra(texto);
+        lista = cc.getPalavra(linhas);
 
         if (cc.erroLexico == true) {
             TextConsole.setForeground(Color.RED);
             TextConsole.append("Ocorreu um Erro lexico verifique!\n");
         } else {
             TextConsole.setForeground(Color.GREEN);
-            TextConsole.append("Compilado com Sucesso!\n");
+            // TextConsole.append("Compilado com Sucesso!\n");
         }
 
         getListaMunuAtt(lista);

@@ -11,14 +11,15 @@ public class Token {
 
     private Integer codigo;
     private String nome;
-    private String linha;
+    private Integer linha;
 
     public Token() {
     }
 
-    public Token(Integer codigo, String nome, String linha) {
+    public Token(Integer codigo, String nome, Integer lineNumber) {
+        super();
         this.codigo = codigo;
-        this.linha = linha;
+        this.linha = lineNumber;
         this.nome = nome;
     }
 
@@ -30,7 +31,7 @@ public class Token {
         return nome;
     }
 
-    public String getLinha() {
+    public Integer getLinha() {
         return linha;
     }
 
@@ -42,7 +43,11 @@ public class Token {
         this.nome = token;
     }
 
-    public void setlinha(String linha) {
+    public void setlinha(Integer linha) {
         this.linha = linha;
+    }
+
+    public String toString() {
+        return "Token{" + "palavra=" + nome + ", codigo=" + codigo + '}';
     }
 }
