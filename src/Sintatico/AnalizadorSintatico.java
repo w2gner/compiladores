@@ -2,6 +2,9 @@ package Sintatico;
 
 import Models.Token;
 import java.util.Stack;
+
+import javax.swing.JOptionPane;
+
 import Gramatica.Gramatica;
 
 /**
@@ -11,6 +14,26 @@ import Gramatica.Gramatica;
  * @author Wagner
  */
 public class AnalizadorSintatico {
+    /*
+     * Função para mostrar tela de erro com a linha e palavra
+     */
+
+    String msg;
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void erro(String msg) {
+        JOptionPane.showMessageDialog(null, msg,
+                "Erro Sintática houve uma interrupção",
+                JOptionPane.ERROR_MESSAGE);
+        // erroLexico = true;
+    }
 
     public void analisar(Stack<Token> tokens) {
         Stack<Token> pilhaA = reverseStack((Stack<Token>) tokens);
@@ -23,21 +46,19 @@ public class AnalizadorSintatico {
 
             if (valorX < 52) {
                 if (valorX == valorA) {
-                    // System.out.println("Tamanho PilhaA= " + pilhaA.size());
-                    // System.out.println("PilhaA " + pilhaA.peek().getCodigo());
-                    // System.out.println("PilhaX " + pilhaX.peek());
                     pilhaA.pop();
                     pilhaX.pop();
-                    // if (!pilhaA.empty() && !pilhaX.empty()) {
-                    //     System.out.println("PilhaA " + pilhaA.peek().getCodigo());
-                    //     System.out.println("PilhaX " + pilhaX.peek());
-                    // }
                 } else {
-                    System.out.println("Linha " + pilhaA.peek().getLinha());
+                    // setMsg("O algoritmo é invalido valores diferentes! ");
                     System.out.println("Valor encontrado= " + getPalavra(valorA));
                     System.out.println("Valor esperado= " + getPalavra(valorX));
-                    System.out.println("===Análise Sintática===");
-                    return;
+                    System.out.println("LINHA: " + pilhaA.peek().getLinha());
+                    erro("Valor encontrado: " + getPalavra(valorA) + "\n\tValor esperado: " + getPalavra(valorX)
+                            + "\nLINHA: " + (pilhaA.pop().getLinha() - 1));
+                    // JOptionPane.showMessageDialog(null, "O algoritmo é válido");
+                    System.out.println("===Análise Sintática===\n");
+                    break;
+                    // return;
                 }
             } else {
                 Integer[] valorAX = buscar(valorX, valorA);
@@ -57,14 +78,17 @@ public class AnalizadorSintatico {
 
     private void validarPilhas(Stack<Token> pilhaA, Stack<Integer> pilhaX) {
         if (pilhaX.isEmpty() && pilhaA.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O algoritmo é válido");
             System.out.println("O algoritmo é válido");
         } else if (pilhaA.isEmpty()) {
-            System.out.println("Valor esperado= " + getPalavra(pilhaX.firstElement()));
-            System.out.println("O algoritmo é invalido");
+
+            System.out.println("Valor esperado: " + getPalavra(pilhaX.firstElement()));
+            erro("Valor esperado: " + getPalavra(pilhaX.firstElement()) + "\n" + getMsg());
         } else {
-            System.out.println("O algoritmo é invalido");
+            erro("O algoritmo é invalido");
+            // System.out.println("O algoritmo é invalido");
         }
-        System.out.println("===Análise Sintática===");
+        // System.out.println("===Análise Sintática===");
     }
 
     private Stack<Token> reverseStack(Stack<Token> pilha) {

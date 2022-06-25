@@ -1,8 +1,12 @@
 package Gramatica;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+
+import Models.Token;
 
 /**
  *
@@ -361,4 +365,63 @@ public class Gramatica {
         }
         return null;
     }
+
+    public List<Token> getTokens() {
+        List<Token> Tokens = new ArrayList<Token>();
+
+        Tokens.add(new Token(1, "Program", null));
+        Tokens.add(new Token(2, "Label", null));
+        Tokens.add(new Token(3, "Const", null));
+        Tokens.add(new Token(4, "Var", null));
+        Tokens.add(new Token(5, "Procedure", null));
+        Tokens.add(new Token(6, "Begin", null));
+        Tokens.add(new Token(7, "End", null));
+        Tokens.add(new Token(8, "Integer", null));
+        Tokens.add(new Token(9, "Array", null));
+        Tokens.add(new Token(10, "Of", null));
+        Tokens.add(new Token(11, "Call", null));
+        Tokens.add(new Token(12, "Goto", null));
+        Tokens.add(new Token(13, "If", null));
+        Tokens.add(new Token(14, "Then", null));
+        Tokens.add(new Token(15, "Else", null));
+        Tokens.add(new Token(16, "While", null));
+        Tokens.add(new Token(17, "Do", null));
+        Tokens.add(new Token(18, "Repeat", null));
+        Tokens.add(new Token(19, "Until", null));
+        Tokens.add(new Token(20, "Readln", null));
+        Tokens.add(new Token(21, "Writeln", null));
+        Tokens.add(new Token(22, "Or", null));
+        Tokens.add(new Token(23, "And", null));
+        Tokens.add(new Token(24, "Not", null));
+        Tokens.add(new Token(25, "Identificador", null));
+        Tokens.add(new Token(26, "Inteiro", null));
+        Tokens.add(new Token(27, "For", null));
+        Tokens.add(new Token(28, "To", null));
+        Tokens.add(new Token(29, "Case", null));
+        Tokens.add(new Token(30, "+", null));
+        Tokens.add(new Token(31, "-", null));
+        Tokens.add(new Token(32, "*", null));
+        Tokens.add(new Token(33, "/", null));
+        Tokens.add(new Token(34, "[", null));
+        Tokens.add(new Token(35, "]", null));
+        Tokens.add(new Token(36, "(", null));
+        Tokens.add(new Token(37, ")", null));
+        Tokens.add(new Token(38, ":=", null));
+        Tokens.add(new Token(39, ":", null));
+        Tokens.add(new Token(40, "=", null));
+        Tokens.add(new Token(41, ">", null));
+        Tokens.add(new Token(42, ">=", null));
+        Tokens.add(new Token(43, "<", null));
+        Tokens.add(new Token(44, "<=", null));
+        Tokens.add(new Token(45, "<>", null));
+        Tokens.add(new Token(46, ",", null));
+        Tokens.add(new Token(47, ";", null));
+        Tokens.add(new Token(48, "Literal", null));
+        Tokens.add(new Token(49, ".", null));
+        Tokens.add(new Token(50, "..", null));
+        Tokens.add(new Token(51, "$", null));
+
+        return Tokens;
+    }
+
 }

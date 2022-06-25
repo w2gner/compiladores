@@ -1,5 +1,5 @@
 Exemplo 1: -----------------------------------------------------------------------------------------------
-(*TESTE - Exemplo Válido*)
+(*TESTE - Exemplo V�lido*)
 PROGRAM TESTE123;
 	LABEL
 		label_a, label_b;
@@ -12,7 +12,7 @@ PROGRAM TESTE123;
 		array_a : ARRAY[0..20] OF INTEGER;
 		array_b, array_c, array_d : ARRAY[0..1000] OF INTEGER;
 	
-	(*Declaração de procedure, inicia novo bloco*)
+	(*Declara��o de procedure, inicia novo bloco*)
 	PROCEDURE p_teste(idd : INTEGER);
 		LABEL
 			label_a, label_b;
@@ -31,7 +31,7 @@ PROGRAM TESTE123;
 	END;
 
 (*	
-	- Início do bloco principal
+	- In�cio do bloco principal
 *)
 
 BEGIN
@@ -79,7 +79,7 @@ BEGIN
 END.
 
 Exemplo 2: -----------------------------------------------------------------------------------------------
-(*TESTE - EXEMPLO VÁLIDO*)
+(*TESTE - EXEMPLO V�LIDO*)
 PROGRAM TESTE123;
 VAR x, A, B : INTEGER;
 
@@ -94,7 +94,7 @@ BEGIN
 END.
 
 Exemplo 3: -----------------------------------------------------------------------------------------------
-(*TESTE - Exemplo iválido. O label_a não é válido para a procedure*)
+(*TESTE - Exemplo iv�lido. O label_a n�o � v�lido para a procedure*)
 PROGRAM TESTEPROC2;
 LABEL label_a;
 const a  = 100;
@@ -109,7 +109,7 @@ CALL p(label_a)
 
 END.
 
-Exemplo 4: -----------------------------------------------------------------------------------------------
+Exemplo 4 f: -----------------------------------------------------------------------------------------------
 (*TESTE - Erro*)
 (*A derivao [66,26] 'COMANDO,INTEIRO' no foi encontrada na tabela de parsing.*)
 PROGRAM TESTE123;
@@ -125,7 +125,7 @@ BEGIN
 END.
 
 Exemplo 5: -----------------------------------------------------------------------------------------------
-(*TESTE - Válido. Uma expressão pode ser utilizada na procedure*)
+(*TESTE - V�lido. Uma express�o pode ser utilizada na procedure*)
 PROGRAM TESTEPROC2;
 LABEL label_a;
 const a  = 100;
@@ -143,7 +143,7 @@ END.
 
 
 Exemplo 6: -----------------------------------------------------------------------------------------------
-(*TESTE - Exemplo Válido com procedures*)
+(*TESTE - Exemplo V�lido com procedures*)
 PROGRAM TESTE123;
 	CONST
 		a = -100;
@@ -153,7 +153,7 @@ PROGRAM TESTE123;
 		array_a : ARRAY[0..20] OF INTEGER;
 		array_b, array_c, array_d : ARRAY[0..1000] OF INTEGER;
 	
-	(*Declaração de procedure, inicia novo bloco*)
+	(*Declara��o de procedure, inicia novo bloco*)
 	PROCEDURE p_teste(idd : INTEGER);
 		LABEL
 			label_a, label_b;
@@ -178,7 +178,7 @@ BEGIN
 END.
 
 Exemplo 6: -----------------------------------------------------------------------------------------------
-(*TESTE - Exemplo inválido: A varivel 'A' foi declarada em duplicidade*)
+(*TESTE - Exemplo inv�lido: A varivel 'A' foi declarada em duplicidade*)
 PROGRAM TESTE123;
 	CONST
 		a = -100;
@@ -190,7 +190,7 @@ BEGIN
 END.
 
 Exemplo 7: -----------------------------------------------------------------------------------------------
-(*TESTE - Exemplo válido: multiplicação*)
+(*TESTE - Exemplo v�lido: multiplica��o*)
 PROGRAM TESTE123;
 	CONST
 		a = -100;
@@ -227,7 +227,7 @@ BEGIN
 END.
 
 Exemplo 8: -----------------------------------------------------------------------------------------------
-(*TESTE - inválido: procedure duplicada*)
+(*TESTE - inv�lido: procedure duplicada*)
 PROGRAM TESTE_PROC;
 	(*Proc A*)
 	PROCEDURE p_a(idd : INTEGER);
@@ -272,4 +272,3 @@ BEGIN
 	
 
 END.
-
