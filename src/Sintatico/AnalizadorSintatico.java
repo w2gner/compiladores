@@ -54,7 +54,7 @@ public class AnalizadorSintatico {
                     System.out.println("Valor esperado= " + getPalavra(valorX));
                     System.out.println("LINHA: " + pilhaA.peek().getLinha());
                     erro("Valor encontrado: " + getPalavra(valorA) + "\n\tValor esperado: " + getPalavra(valorX)
-                            + "\nLINHA: " + (pilhaA.pop().getLinha() - 1));
+                            + "\nLINHA: " + (pilhaA.pop().getLinha() - 16));
                     // JOptionPane.showMessageDialog(null, "O algoritmo é válido");
                     System.out.println("===Análise Sintática===\n");
                     break;
